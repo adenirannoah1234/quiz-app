@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Box } from '@chakra-ui/react';
 import { useDrag } from 'react-dnd';
 // import { DraggableItemType } from '../types/types';
@@ -13,6 +13,8 @@ const DraggableItem: React.FC<DraggableItemProps> = ({
   text,
   isDropped,
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'term',
     item: { id, text },
@@ -21,9 +23,11 @@ const DraggableItem: React.FC<DraggableItemProps> = ({
     }),
   }));
 
+  drag(ref);
+
   return (
     <Box
-      ref={drag}
+      ref={ref}
       bg="gray.800"
       color="white"
       px={4}

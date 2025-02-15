@@ -14,6 +14,8 @@ const DroppableZone: React.FC<DroppableZoneProps> = ({
   onDrop,
   isCorrect,
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'term',
     drop: (item: DraggableItemType) => onDrop(item, definition),
@@ -21,11 +23,11 @@ const DroppableZone: React.FC<DroppableZoneProps> = ({
       isOver: monitor.isOver(),
     }),
   }));
-  const ref = useRef(null);
 
+  drop(ref);
   return (
     <Box
-      ref={drop}
+      ref={ref}
       p={4}
       borderWidth="2px"
       borderRadius="md"
